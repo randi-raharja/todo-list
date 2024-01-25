@@ -13,23 +13,20 @@ form.onsubmit = function (event) {
 
     document.forms['todoForm'].reset();
 
-    console.log(taskList);
     displayData();
 };
 
-// Function display data 
-function displayData(){
-    for(let i = 0; i< taskList.length; i++){
-        const task = taskList[i];
-
+// Function Task List
+function taskListDisplay (index, task){
         // Class list 
         let checkClass = ['bi', 'bi-check'];
         let labelClass = ['flex','w-fit','p-2','hover:bg-blue-600','cursor-pointer','rounded-r-md'];
-        let divClass = ['justify-between', 'items-center', 'rounded-md', 'hover:bg-blue-400'];
+        let divClass = ['justify-between', 'items-center', 'rounded-md','cursor-pointer', 'hover:bg-blue-400'];
+        let buttonClass = ['p-2','hover:bg-blue-600','cursor-pointer', 'rounded-r-md'];
         
 
         const icon = document.createElement('i')
-        const buttonLabel = document.createElement('input');
+        const buttonLabel = document.createElement('button');
         const labelDiv = document.createElement('label');
         const spanLabel = document.createElement('span');
         const divContent = document.createElement('div');
@@ -37,28 +34,63 @@ function displayData(){
 
         // Input label
         icon.classList.add(...checkClass);
-        buttonLabel.type = "button";
         labelDiv.classList.add(...labelClass);
-        labelDiv.appendChild(icon, buttonLabel);
-
-        // Label
-        spanLabel.classList.add(...labelClass[2]);
+        buttonLabel.classList.add(...buttonClass);
+        buttonLabel.onclick = function (){
+            removeTask(index);
+        };
+        buttonLabel.appendChild(icon);
+        labelDiv.appendChild(buttonLabel);
 
         // Div
-        divContent.classList.add(...divClass, labelClass[4]);
+        divContent.classList.add(...divClass,labelClass[0]);
+        divContent.append(spanLabel, buttonLabel);
         
         spanLabel.textContent = task;
-        liUl.appendChild(labelDiv);
+        spanLabel.classList.add(labelClass[2]);
+        liUl.append(divContent);
         
         const ulList = document.getElementById('taskList');
         ulList.appendChild(liUl);
+}
+
+// Function display data 
+function displayData(){
+    clearData();
+
+    for(let i = 0; i< taskList.length; i++){
+        const task = taskList[i];
+
+        // Search
+        const searchText = document.getElementById("search").value.toLowerCase();
+        
+        if(task.toLowerCase().includes(searchText)){
+            taskListDisplay(i, task);
+        }
     }
 }
 
-function change(){
-    const ele = document.getElementById("content");
-    ele.classList.remove('hover:bg-blue-400');
-    ele.classList.add('bg-red-400');
+// Clear data
+function clearData(){
+    const taskList = document.getElementById('taskList');
+    while(taskList.firstChild){
+        taskList.removeChild(taskList.firstChild);
+    }
+}
+
+// Search Task
+const searchInput = document.getElementById("search");
+searchInput.onkeyup = function() {
+    displayData();
+}
+searchInput.onkeydown = function() {
+    displayData();
+}
+
+// Remove Data
+function removeTask(index) {
+    taskList.splice(index, 1);
+    displayData();
 }
 
 // Ketika mulai melakukan perpindahan
