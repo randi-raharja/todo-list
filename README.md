@@ -1,1 +1,1 @@
-My first app coded with javascript
+My first app coded with javascript with framework TailwindCSS
