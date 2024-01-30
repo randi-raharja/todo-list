@@ -49,6 +49,7 @@ function taskListDisplay (index, task){
     spanLabel.textContent = task;
     spanLabel.classList.add(labelClass[2]);
     liUl.append(divContent);
+    liUl.draggable = true;
     
     const ulList = document.getElementById('taskList');
     ulList.appendChild(liUl);
@@ -129,13 +130,3 @@ darkButton.addEventListener('change', function() {
         }
     }
 });
-
-// Ketika mulai melakukan perpindahan
-document.addEventListener("dragstart", (e) => {
-    e.target.classList.add("opacity-25");
-})
-
-document.addEventListener("dragend", (e) => {
-    e.target.classList.remove("opacity-25");
-})
-
