@@ -11,12 +11,18 @@
 
     <!-- TailwindCSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class', /* 'class' or 'media', we use 'class' to enable dark mode manually */
+        }
+    </script>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-100 dark:bg-slate-900">
     <div class="center flex h-screen items-center justify-center">
         <div class="flex h-fit w-96 flex-col rounded-lg bg-white p-4 shadow-lg">
             <h1 class="text-center font-bold">To Do List</h1>
+            <!-- Form input Task -->
             <form class="mb-2" name="todoForm" id="todoForm">
                 <div class="mb-2 flex flex-col">
                     <label class="mb-1 font-semibold" for="task">Task</label>
@@ -28,6 +34,7 @@
                     Task</button>
             </form>
             <div class="mb-2">
+                <!-- Search -->
                 <div class="flex items-center justify-between mb-2">
                     <h1 class="text-center font-bold">Your List</h1>
                     <input type="text" name="search" id="search" class="rounded-md border px-2 py-1"
@@ -39,13 +46,22 @@
                     </li>
                 </ul>
             </div>
-            <hr class="w-full h-px hidden sm:block bg-black border-0 bg-gray-300">
-            <!-- <button class="bg-red-200">Test</button> -->
+            <hr class="w-full h-px hidden sm:block bg-black border-0 bg-gray-300 mb-2">
+            <!-- Dark mode toggle -->
+            <div class="flex gap-2 justify-center">
+                <i class="bi bi-brightness-high-fill"></i>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" class="sr-only peer" id="darkButton">
+                    <div
+                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600 peer-checked:dark:bg-slate-500">
+                    </div>
+                </label>
+                <i class="bi bi-moon-fill"></i>
+            </div>
         </div>
     </div>
 
-    <script src=" script.js">
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>

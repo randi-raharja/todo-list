@@ -18,40 +18,40 @@ form.onsubmit = function (event) {
 
 // Function Task List
 function taskListDisplay (index, task){
-        // Class list 
-        let checkClass = ['bi', 'bi-check'];
-        let labelClass = ['flex','w-fit','p-2','hover:bg-blue-600','cursor-pointer','rounded-r-md'];
-        let divClass = ['justify-between', 'items-center', 'rounded-md','cursor-pointer', 'hover:bg-blue-400'];
-        let buttonClass = ['p-2','hover:bg-blue-600','cursor-pointer', 'rounded-r-md'];
-        
+    // Class list 
+    let checkClass = ['bi', 'bi-check'];
+    let labelClass = ['flex','w-fit','p-2','hover:bg-blue-600','cursor-pointer','rounded-r-md'];
+    let divClass = ['justify-between', 'items-center', 'rounded-md','cursor-pointer', 'hover:bg-blue-500', 'hover:text-white'];
+    let buttonClass = ['p-2','hover:bg-blue-600','cursor-pointer', 'rounded-r-md'];
+    
 
-        const icon = document.createElement('i')
-        const buttonLabel = document.createElement('button');
-        const labelDiv = document.createElement('label');
-        const spanLabel = document.createElement('span');
-        const divContent = document.createElement('div');
-        const liUl = document.createElement('li');
+    const icon = document.createElement('i')
+    const buttonLabel = document.createElement('button');
+    const labelDiv = document.createElement('label');
+    const spanLabel = document.createElement('span');
+    const divContent = document.createElement('div');
+    const liUl = document.createElement('li');
 
-        // Input label
-        icon.classList.add(...checkClass);
-        labelDiv.classList.add(...labelClass);
-        buttonLabel.classList.add(...buttonClass);
-        buttonLabel.onclick = function (){
-            removeTask(index);
-        };
-        buttonLabel.appendChild(icon);
-        labelDiv.appendChild(buttonLabel);
+    // Input label
+    icon.classList.add(...checkClass);
+    labelDiv.classList.add(...labelClass);
+    buttonLabel.classList.add(...buttonClass);
+    buttonLabel.onclick = function (){
+        removeTask(index);
+    };
+    buttonLabel.appendChild(icon);
+    labelDiv.appendChild(buttonLabel);
 
-        // Div
-        divContent.classList.add(...divClass,labelClass[0]);
-        divContent.append(spanLabel, buttonLabel);
-        
-        spanLabel.textContent = task;
-        spanLabel.classList.add(labelClass[2]);
-        liUl.append(divContent);
-        
-        const ulList = document.getElementById('taskList');
-        ulList.appendChild(liUl);
+    // Div
+    divContent.classList.add(...divClass,labelClass[0]);
+    divContent.append(spanLabel, buttonLabel);
+    
+    spanLabel.textContent = task;
+    spanLabel.classList.add(labelClass[2]);
+    liUl.append(divContent);
+    
+    const ulList = document.getElementById('taskList');
+    ulList.appendChild(liUl);
 }
 
 // Function display data 
@@ -93,6 +93,43 @@ function removeTask(index) {
     displayData();
 }
 
+// Dark Mode
+const darkButton = document.getElementById('darkButton');
+
+if (localStorage.getItem("color-theme") === "dark" || (!("color-theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+    document.documentElement.classList.add('dark')
+    darkButton.checked = true;
+} else {
+    document.documentElement.classList.remove('dark')
+    darkButton.checked = false;
+}
+
+darkButton.addEventListener('change', function() {
+    if (localStorage.getItem('color-theme')) {
+        if (localStorage.getItem('color-theme') === 'light') {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+            darkButton.checked = true;
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+            darkButton.checked = false;
+        }
+        
+        // if NOT set via local storage previously
+    } else {
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+            darkButton.checked = false;
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+            darkButton.checked = true;
+        }
+    }
+});
+
 // Ketika mulai melakukan perpindahan
 document.addEventListener("dragstart", (e) => {
     e.target.classList.add("opacity-25");
@@ -101,3 +138,4 @@ document.addEventListener("dragstart", (e) => {
 document.addEventListener("dragend", (e) => {
     e.target.classList.remove("opacity-25");
 })
+
