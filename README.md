@@ -5,4 +5,3 @@ My first app coded with javascript with framework TailwindCSS
 - [x] Add task
 - [x] Search function
 - [x] Dark Mode
-- [ ] Reponsive
